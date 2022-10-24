@@ -1,0 +1,15 @@
+<core:FragmentDefinition xmlns="sap.m"
+    xmlns:core="sap.ui.core">
+    <!-- <Menu itemSelected=".onActionSelected">
+        <MenuItem icon="sap-icon://delete" text="Delete" key="delete"/>
+        <MenuItem icon="sap-icon://accept" text="Completed" key="complete"/>
+        <MenuItem icon="sap-icon://undo" text="Incompleted" key="incomplete"/>
+    </Menu> -->
+    <ActionSheet id="actionSheet" title="Choose an action" placement="Auto">
+        <Button icon="sap-icon://delete" text="Delete" type="Reject" press=".onDeleteItem" />
+        <Button icon="sap-icon://accept" text="Completed" type="Accept" press=".onCompleteItem"/>
+        <Button icon="sap-icon://undo" type="Emphasized" text="Incompleted" press=".onUndoItem" />
+    </ActionSheet>
+</core:FragmentDefinition>
+
+

@@ -1,0 +1,82 @@
+<mvc:View xmlns:layout="sap.ui.layout"
+    xmlns:core="sap.ui.core" controllerName="com.smod.todolistapp.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <VBox id="todoContainer">
+                <Panel headerText="Add New Todo Item" height="auto" width="100%">
+                    <content>
+
+                        <layout:Grid vSpacing= "0">
+                            <Label text="{i18n>todoItemText}:">
+                                <layoutData>
+                                    <layout:GridData span="XL1 L1 M1 S12" />
+                                </layoutData>
+                            </Label>
+                            <Input autocomplete="true" value="{todoModel>/NewTodo/ItemText}" valueLiveUpdate="true">
+                                <layoutData>
+                                    <layout:GridData span="XL6 L6 M6 S12" />
+
+                                </layoutData>
+                            </Input>
+                            <Button icon="sap-icon://add" text="Add" press=".onAddNewItem">
+                                <layoutData>
+                                    <layout:GridData span="XL3 L3 M3 S12" />
+
+                                </layoutData>
+                            </Button>
+                        </layout:Grid>
+
+                    </content>
+                </Panel>
+                <Table items="{todoModel>/TodoSet}">
+                    <columns>
+                        <Column id="todoItemTextColumn">
+                            <Title text="{i18n>todoItemText}"></Title>
+                        </Column>
+
+                        <Column id="todoItemCreationDateColumn">
+                            <Title text="{i18n>todoItemCreatedAtText}"></Title>
+                        </Column>
+
+                        <Column id="todoItemCompletionDateColumn">
+                            <Title text="{i18n>todoItemCompletedAtText}"></Title>
+                        </Column>
+
+                        <Column id="todoItemActions" hAlign="Center">
+                            <Title text="{i18n>todoItemActions}"></Title>
+                        </Column>
+
+                    </columns>
+                    <items>
+                        <ColumnListItem>
+                            <cells>
+                                <ObjectIdentifier title="{todoModel>ItemText}" class="itemText">
+                                    <customData>
+                                        <core:CustomData key="is-completed" value="X" writeToDom="{todoModel>IsCompleted}"></core:CustomData>
+                                    </customData>
+                                </ObjectIdentifier>
+                                <Text text="{ path:'todoModel>CreationDate', 	type: 'sap.ui.model.type.DateTime',
+				formatOptions: {
+					pattern: 'dd MMM YYYY - HH:mm'
+				}}" />
+                                <Text text="{path:'todoModel>CompletionDate', 	type: 'sap.ui.model.type.DateTime',
+				formatOptions: {
+					pattern: 'dd MMM YYYY - HH:mm'
+				}}" />
+
+                                <Button icon="sap-icon://overflow" press=".onItemMenuPressed">
+                                    <customData>
+                                        <core:CustomData key="itemId" value="{todoModel>ItemId}" />
+                                    </customData>
+                                </Button>
+
+                            </cells>
+                        </ColumnListItem>
+                    </items>
+                </Table>
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

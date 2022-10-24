@@ -20,8 +20,8 @@
 
 ## todo-list-app
 
-- This app is developed by SMOD Fiori Team to demonstrate the basics of SAPUI5 and FIORI apps using
-  TODO app logic
+This app is developed by SMOD Fiori Team to demonstrate the basics of SAPUI5 and FIORI apps using
+TODO app logic
 
 ### Starting the generated app
 

@@ -1,14 +1,15 @@
 sap.ui.define(
-  ["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment"],
+  ["sap/ui/core/mvc/Controller", "sap/ui/core/Fragment", "sap/m/MessageToast"],
   /**
    * @param {typeof sap.ui.core.mvc.Controller} Controller
    */
-  function (Controller, Fragment) {
+  function (Controller, Fragment, MessageToast) {
     "use strict";
 
     return Controller.extend("com.smod.todolistapp.controller.View1", {
       onInit: function () {
         var oViewModel = new sap.ui.model.json.JSONModel({
+          Busy: false,
           NewTodo: this._getInitialTodo(),
           TodoSet: [
             {
@@ -91,15 +92,30 @@ sap.ui.define(
         var oViewModel = this.getView().getModel("todoModel");
         var aToDo = oViewModel.getProperty("/TodoSet");
         var oNewItem = oViewModel.getProperty("/NewTodo");
+        var that = this;
 
-        oNewItem.CreationDate = new Date();
-        oNewItem.ItemId = this._generateUid();
+        if (!oNewItem.ItemText || oNewItem.ItemText.trim().length === 0) {
+          MessageToast.show("Please enter an item text!");
+          return;
+        }
 
-        aToDo.push(oNewItem);
+        var delayedAction = new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            oNewItem.CreationDate = new Date();
+            oNewItem.ItemId = that._generateUid();
 
-        oViewModel.setProperty("/TodoSet", aToDo);
+            aToDo.push(oNewItem);
+            resolve(aToDo);
+          }, 1000);
+        });
 
-        oViewModel.setProperty("/NewTodo", this._getInitialTodo());
+        oViewModel.setProperty("/Busy", true);
+        delayedAction.then(function (changedTodo) {
+          MessageToast.show("Item has been added!");
+          oViewModel.setProperty("/Busy", false);
+          oViewModel.setProperty("/TodoSet", changedTodo);
+          oViewModel.setProperty("/NewTodo", that._getInitialTodo());
+        });
       },
 
       _getInitialTodo: function () {
@@ -117,33 +133,37 @@ sap.ui.define(
         var aToDo = oViewModel.getProperty("/TodoSet");
         var i = this._findIndex(aToDo, itemId);
 
-        switch (action) {
-          case "delete":
-            aToDo.splice(i, 1);
-            break;
-          case "complete":
-            aToDo[i].CompletionDate = new Date();
-            aToDo[i].IsCompleted = true;
-            break;
-          case "incomplete":
-            aToDo[i].CompletionDate = null;
-            aToDo[i].IsCompleted = false;
-            break;
-          default:
-            return;
-        }
+        var delayedAction = new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            switch (action) {
+              case "delete":
+                aToDo.splice(i, 1);
+                break;
+              case "complete":
+                aToDo[i].CompletionDate = new Date();
+                aToDo[i].IsCompleted = true;
+                break;
+              case "incomplete":
+                aToDo[i].CompletionDate = null;
+                aToDo[i].IsCompleted = false;
+                break;
+              default:
+                return;
+            }
+            resolve(aToDo);
+          }, 1500);
+        });
 
-        oViewModel.setProperty("/TodoSet", aToDo);
+        oViewModel.setProperty("/Busy", true);
+        delayedAction.then(function (changedTodo) {
+          MessageToast.show("Operation successful!");
+          oViewModel.setProperty("/Busy", false);
+          oViewModel.setProperty("/TodoSet", changedTodo);
+        });
       },
 
       _findIndex: function (aTodo, itemId) {
         var index = -1;
-        // aTodo.forEach(function (oTodo, i) {
-        //   if (oTodo.ItemId === itemId) {
-        //     index = i;
-        //     return;
-        //   }
-        // });
 
         index = aTodo.findIndex(function (oTodo) {
           return oTodo.ItemId === itemId;

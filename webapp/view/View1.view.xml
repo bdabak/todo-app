@@ -2,22 +2,22 @@
     xmlns:core="sap.ui.core" controllerName="com.smod.todolistapp.controller.View1"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m">
-    <Page id="page" title="{i18n>title}">
+    <Page id="page" title="{i18n>title}" busy="{todoModel>/Busy}" busyIndicatorDelay="0">
         <content>
             <VBox id="todoContainer">
-                <Panel headerText="Add New Todo Item" height="auto" width="100%" class="sapUiNoContentPadding">
+                <Panel headerText="{i18n>addNewItemHeader}" height="auto" width="100%" class="sapUiNoContentPadding">
                     <content>
 
                         <layout:Grid vSpacing= "0" class="sapUiTinyMarginTopBottom">
-                            <Input placeholder="{i18n>todoItemText}" autocomplete="true" value="{todoModel>/NewTodo/ItemText}" valueLiveUpdate="true">
+                            <Input placeholder="{i18n>addNewItemPlaceholder}" autocomplete="true" value="{todoModel>/NewTodo/ItemText}" valueLiveUpdate="true">
                                 <layoutData>
-                                    <layout:GridData span="XL10 L9 M9 S12" />
+                                    <layout:GridData span="XL11 L10 M10 S12" />
 
                                 </layoutData>
                             </Input>
                             <Button icon="sap-icon://add" text="Add" press=".onAddNewItem" width="100%">
                                 <layoutData>
-                                    <layout:GridData span="XL2 L3 M3 S12" />
+                                    <layout:GridData span="XL1 L2 M2 S12" />
 
                                 </layoutData>
                             </Button>
@@ -25,7 +25,7 @@
 
                     </content>
                 </Panel>
-                <Table items="{todoModel>/TodoSet}">
+                <Table items="{todoModel>/TodoSet}" headerText="{i18n>todoListTitle}">
                     <columns>
                         <Column id="todoItemTextColumn">
                             <Title text="{i18n>todoItemText}"></Title>
@@ -72,6 +72,7 @@
                         </ColumnListItem>
                     </items>
                 </Table>
+
             </VBox>
         </content>
     </Page>

@@ -31,11 +31,11 @@
                             <Title text="{i18n>todoItemText}"></Title>
                         </Column>
 
-                        <Column id="todoItemCreationDateColumn">
+                        <Column id="todoItemCreationDateColumn" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline">
                             <Title text="{i18n>todoItemCreatedAtText}"></Title>
                         </Column>
 
-                        <Column id="todoItemCompletionDateColumn">
+                        <Column id="todoItemCompletionDateColumn" minScreenWidth="Desktop" demandPopin="true" popinDisplay="Inline">
                             <Title text="{i18n>todoItemCompletedAtText}"></Title>
                         </Column>
 

@@ -8,15 +8,14 @@
 | **Generation Platform**<br>Visual Studio Code                                 |
 | **Floorplan Used**<br>simple                                                  |
 | **Service Type**<br>None                                                      |
-
-|**Service URL**<br>N/A
-|**Module Name**<br>todo-list-app|
-|**Application Title**<br>Personal Todo List|
-|**Namespace**<br>com.smod|
-|**UI5 Theme**<br>sap_fiori_3|
-|**UI5 Version**<br>1.71.51|
-|**Enable Code Assist Libraries**<br>False|
-|**Add Eslint configuration**<br>False|
+| **Service URL**<br>N/A                                                        |
+| **Module Name**<br>todo-list-app                                              |
+| **Application Title**<br>Personal Todo List                                   |
+| **Namespace**<br>com.smod                                                     |
+| **UI5 Theme**<br>sap_fiori_3                                                  |
+| **UI5 Version**<br>1.71.51                                                    |
+| **Enable Code Assist Libraries**<br>False                                     |
+| **Add Eslint configuration**<br>False                                         |
 
 ## todo-list-app
 

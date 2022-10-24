@@ -5,10 +5,10 @@
         <MenuItem icon="sap-icon://accept" text="Completed" key="complete"/>
         <MenuItem icon="sap-icon://undo" text="Incompleted" key="incomplete"/>
     </Menu> -->
-    <ActionSheet id="actionSheet" title="Choose an action" placement="Auto">
-        <Button icon="sap-icon://delete" text="Delete" type="Reject" press=".onDeleteItem" />
-        <Button icon="sap-icon://accept" text="Completed" type="Accept" press=".onCompleteItem"/>
-        <Button icon="sap-icon://undo" type="Emphasized" text="Incompleted" press=".onUndoItem" />
+    <ActionSheet id="actionSheet" title="Choose an action" placement="Auto" binding="{todoModel>/CurrentTodo}">
+        <Button icon="sap-icon://delete" text="Delete" type="Reject" press=".onDeleteItem" visible="{= ${todoModel>IsCompleted} === false }" />
+        <Button icon="sap-icon://accept" text="Completed" type="Accept" press=".onCompleteItem" visible="{= ${todoModel>IsCompleted} === false }"/>
+        <Button icon="sap-icon://undo" type="Emphasized" text="Incompleted" press=".onUndoItem" visible="{= ${todoModel>IsCompleted} === true }"/>
     </ActionSheet>
 </core:FragmentDefinition>
 

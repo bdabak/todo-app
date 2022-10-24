@@ -61,9 +61,10 @@
 					pattern: 'dd MMM YYYY - HH:mm'
 				}}" />
 
-                                <Button icon="sap-icon://overflow" press=".onItemMenuPressed">
+                                <Button icon="sap-icon://overflow" press=".onItemButtonPressed">
                                     <customData>
                                         <core:CustomData key="itemId" value="{todoModel>ItemId}" />
+                                        <core:CustomData key="currentItem" value="{todoModel>}" />
                                     </customData>
                                 </Button>
 

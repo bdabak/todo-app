@@ -33,33 +33,38 @@ sap.ui.define(
               CompletionDate: null,
             },
           ],
+          CurrentTodo: null,
         });
 
         this.getView().setModel(oViewModel, "todoModel");
       },
 
-      onItemMenuPressed: function (event) {
-        var oView = this.getView(),
-          oButton = event.getSource();
-
+      onItemButtonPressed: function (event) {
+        var oView = this.getView();
+        var oButton = event.getSource();
         var itemId = oButton.data("itemId");
+        var oViewModel = oView.getModel("todoModel");
 
-        if (!this._oMenuFragment) {
-          this._oMenuFragment = Fragment.load({
+        oViewModel.setProperty("/CurrentTodo", oButton.data("currentItem"));
+
+        if (!this._oActionSheet) {
+          this._oActionSheet = Fragment.load({
             id: oView.getId(),
             name: "com.smod.todolistapp.fragment.TodoActions",
             controller: this,
           }).then(
-            function (oMenu) {
-              oMenu.data("itemId", itemId);
-              oMenu.openBy(oButton);
-              this._oMenuFragment = oMenu;
-              return this._oMenuFragment;
+            function (oActionSheet) {
+              oActionSheet.data("itemId", itemId);
+              this._oActionSheet = oActionSheet;
+              // to get access to the controller's model
+              this.getView().addDependent(this._oActionSheet);
+              this._oActionSheet.openBy(oButton);
+              return this._oActionSheet;
             }.bind(this)
           );
         } else {
-          this._oMenuFragment.data("itemId", itemId);
-          this._oMenuFragment.openBy(oButton);
+          this._oActionSheet.data("itemId", itemId);
+          this._oActionSheet.openBy(oButton);
         }
       },
 
@@ -133,11 +138,15 @@ sap.ui.define(
 
       _findIndex: function (aTodo, itemId) {
         var index = -1;
-        aTodo.forEach(function (oTodo, i) {
-          if (oTodo.ItemId === itemId) {
-            index = i;
-            return;
-          }
+        // aTodo.forEach(function (oTodo, i) {
+        //   if (oTodo.ItemId === itemId) {
+        //     index = i;
+        //     return;
+        //   }
+        // });
+
+        index = aTodo.findIndex(function (oTodo) {
+          return oTodo.ItemId === itemId;
         });
 
         return index;

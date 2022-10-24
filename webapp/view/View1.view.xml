@@ -5,24 +5,19 @@
     <Page id="page" title="{i18n>title}">
         <content>
             <VBox id="todoContainer">
-                <Panel headerText="Add New Todo Item" height="auto" width="100%">
+                <Panel headerText="Add New Todo Item" height="auto" width="100%" class="sapUiNoContentPadding">
                     <content>
 
-                        <layout:Grid vSpacing= "0">
-                            <Label text="{i18n>todoItemText}:">
+                        <layout:Grid vSpacing= "0" class="sapUiTinyMarginTopBottom">
+                            <Input placeholder="{i18n>todoItemText}" autocomplete="true" value="{todoModel>/NewTodo/ItemText}" valueLiveUpdate="true">
                                 <layoutData>
-                                    <layout:GridData span="XL1 L1 M1 S12" />
-                                </layoutData>
-                            </Label>
-                            <Input autocomplete="true" value="{todoModel>/NewTodo/ItemText}" valueLiveUpdate="true">
-                                <layoutData>
-                                    <layout:GridData span="XL6 L6 M6 S12" />
+                                    <layout:GridData span="XL10 L9 M9 S12" />
 
                                 </layoutData>
                             </Input>
-                            <Button icon="sap-icon://add" text="Add" press=".onAddNewItem">
+                            <Button icon="sap-icon://add" text="Add" press=".onAddNewItem" width="100%">
                                 <layoutData>
-                                    <layout:GridData span="XL3 L3 M3 S12" />
+                                    <layout:GridData span="XL2 L3 M3 S12" />
 
                                 </layoutData>
                             </Button>

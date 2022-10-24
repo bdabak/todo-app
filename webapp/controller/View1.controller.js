@@ -9,13 +9,7 @@ sap.ui.define(
     return Controller.extend("com.smod.todolistapp.controller.View1", {
       onInit: function () {
         var oViewModel = new sap.ui.model.json.JSONModel({
-          NewTodo: {
-            ItemId: null,
-            ItemText: null,
-            IsCompleted: false,
-            CreationDate: null,
-            CompletionDate: null,
-          },
+          NewTodo: this._getInitialTodo(),
           TodoSet: [
             {
               ItemId: this._generateUid(),
@@ -100,13 +94,17 @@ sap.ui.define(
 
         oViewModel.setProperty("/TodoSet", aToDo);
 
-        oViewModel.setProperty("/NewTodo", {
+        oViewModel.setProperty("/NewTodo", this._getInitialTodo());
+      },
+
+      _getInitialTodo: function () {
+        return {
           ItemId: null,
           ItemText: null,
           IsCompleted: false,
           CreationDate: null,
           CompletionDate: null,
-        });
+        };
       },
 
       _dispatchAction: function (action, itemId) {
